@@ -1,0 +1,5 @@
+<option selected>Random</option>
+<option value="0">No Twists</option>
+<option value="1">One Twist</option>
+<option value="2">Two Twists (But)</option>
+<option id="count" value="3">Two Twists (And)</option>

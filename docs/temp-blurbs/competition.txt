@@ -1,0 +1,4 @@
+<p id="no-twists">Particpants from all over the [locale] are competing in [competition] to win [prize].</p> 
+<p id="one-twist">Particpants from all over the [locale] are competing in [competition] to win [prize]. [twist].</p>
+<p id="two-twists-but">Particpants from all over the [locale] are competing in [competition] to win [prize]. [twist], but actually [twist].</p>
+<p id="two-twists-and">Particpants from all over the [locale] are competing in [competition] to win [prize]. [twist], and [twist].</p>

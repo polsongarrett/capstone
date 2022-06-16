@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 
+import AdventureTypeDescription from './components/Descriptions/AdventureTypeDescription';
 import AdventureTypeSelect from './components/Selects/AdventureTypeSelect';
 import Filters from './components/Filters/Filters'
 import Header from './components/Header'
@@ -41,7 +42,7 @@ function App() {
 
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
                     <Grid item xs={9} pl={4}>
-                      <h4>description</h4>
+                      <AdventureTypeDescription />
                     </Grid>
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
 

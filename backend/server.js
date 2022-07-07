@@ -7,10 +7,10 @@ connectDB();
 
 const app = express();
 
-// for logging body text to console
+// for accessing req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/options', require('./routes/options-route'));
+app.use('/api/templates', require('./routes/template-route'));
 
 app.listen(port, () => console.log(`server started on port ${port}`));

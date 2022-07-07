@@ -10,5 +10,4 @@ const description = useSelector(state => state.advTypeDescription.description);
       { description } 
     </Typography>
   )
-
 }

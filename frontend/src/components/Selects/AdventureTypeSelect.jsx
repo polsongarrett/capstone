@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { changeAdvTypeDescription } from '../../redux/slices/advTypeDescriptionSlice';
+import { getTemplateDescriptions } from '../../redux/slices/advTemplateDescriptionSlice';
+import { getTemplates } from '../../redux/slices/advTemplateOptionsSlice';
+import { changeAdvType } from '../../redux/slices/advTypeSlice';
 
 const advTypeOptions = [
   'Random',
@@ -33,13 +37,17 @@ const advTypeDescriptions = [
 ]
 
 export default function AdventureTypeSelect() {
-  const [advType, setAdventureType] = React.useState('');
+  const [advType, setAdventureType] = useState('');
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
     let index = event.target.value;
     setAdventureType(index);
+
+    dispatch(changeAdvType(advTypeOptions[index]));
     dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
+    dispatch(getTemplates(advTypeOptions[index]));
+    dispatch(getTemplateDescriptions(advTypeOptions[index]));
   };
 
   return (
@@ -55,23 +63,10 @@ export default function AdventureTypeSelect() {
         >
           {/* Dynamically populates the select options */}
           {
-            advTypeOptions.map((e, i) => {
-              return <MenuItem key={e} value={i} disabled={i>2}>{e}</MenuItem>
+            advTypeOptions.map((element, index) => {
+              return <MenuItem key={element} value={index} disabled={index > 2}>{element}</MenuItem>
             })
           }
-
-          {/* 
-          <MenuItem value={0}>Random</MenuItem>
-          <MenuItem value={1}>Competition</MenuItem>
-          <MenuItem value={2}>Crime</MenuItem>
-          <MenuItem value={3}>Curse</MenuItem>
-          <MenuItem value={4}>Disaster</MenuItem>
-          <MenuItem value={5}>Exploration</MenuItem>
-          <MenuItem value={6}>Monster</MenuItem>
-          <MenuItem value={7}>Plague</MenuItem>
-          <MenuItem value={8}>Protection</MenuItem>
-          <MenuItem value={9}>War</MenuItem> 
-          */}
         </Select>
       </FormControl>
     </>

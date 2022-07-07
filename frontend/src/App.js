@@ -1,6 +1,8 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 
+import AdventureTemplateDescription from './components/Descriptions/AdventureTemplateDescription';
+import AdventureTemplateSelect from './components/Selects/AdventureTemplateSelect';
 import AdventureTypeDescription from './components/Descriptions/AdventureTypeDescription';
 import AdventureTypeSelect from './components/Selects/AdventureTypeSelect';
 import Filters from './components/Filters/Filters'
@@ -28,7 +30,7 @@ function App() {
               </Grid>
               {/* -------- F I L T E R S  C O L U M N -------- */}
               
-              {/* -------- M E N U  C O L U M N -------- */}
+              {/* ----------- M E N U  C O L U M N ----------- */}
               <Grid item xs={9}>
 
                   {/* ------------------------------- A D V E N T U R E  R O W ---------------------------------- */}
@@ -54,20 +56,28 @@ function App() {
                     
                     {/* -------- C O L U M N --------- */}
                     <Grid item xs={2}>
-                      <h4>template</h4>
+                      <AdventureTemplateSelect />
                     </Grid>
                     {/* -------- C O L U M N --------- */}
 
                     {/* -------- C O L U M N --------- */}
                     <Grid item xs={9} pl={4}>
-                      <h4>description</h4>
+                      <AdventureTemplateDescription />
                     </Grid>
                     {/* -------- C O L U M N --------- */}
                   </Grid>
                   {/* ------------------------------- T E M P L A T E  R O W ---------------------------------- */}
 
+                  {/* ------------------------ T E M P L A T E  O P T I O N S  R O W --------------------------- */}
+
+                  {/* ------------------------ T E M P L A T E  O P T I O N S  R O W --------------------------- */}
+
+                  {/* -------------------------------- D I S P L A Y  R O W ------------------------------------ */}
+
+                  {/* -------------------------------- D I S P L A Y  R O W ------------------------------------ */}
+
               </Grid>
-              {/* -------------- M E N U  C O L U M N ----------------- */}
+              {/* ----------- M E N U  C O L U M N ----------- */}
 
             </Grid>
             {/* ------------------------------- M A I N  R O W ---------------------------------- */}

@@ -1,15 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import advTemplateDescriptionReducer from './slices/advTemplateDescriptionSlice';
-import advTemplateOptionsReducer from './slices/advTemplateOptionsSlice';
+import advTemplateReducer from './slices/templateSlice';
 import advTypeReducer from './slices/advTypeSlice';
-import advTypeDescriptionReducer from './slices/advTypeDescriptionSlice';
+import variableReducer from './slices/variableSlice';
 
 // reducers and slices explained: https://www.youtube.com/watch?v=iBUJVy8phqw
 export const store = configureStore({
   reducer: {
-    advTemplateDescription: advTemplateDescriptionReducer,
-    advTemplateOptions: advTemplateOptionsReducer,
+    advTemplate: advTemplateReducer,
     advType: advTypeReducer,
-    advTypeDescription: advTypeDescriptionReducer,
+    advVariable: variableReducer
   },
 });

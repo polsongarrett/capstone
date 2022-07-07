@@ -1,14 +1,18 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import { useSelector } from 'react-redux';
 
-import AdventureTemplateDescription from './components/Descriptions/AdventureTemplateDescription';
 import AdventureTemplateSelect from './components/Selects/AdventureTemplateSelect';
-import AdventureTypeDescription from './components/Descriptions/AdventureTypeDescription';
 import AdventureTypeSelect from './components/Selects/AdventureTypeSelect';
-import Filters from './components/Filters/Filters'
-import Header from './components/Header'
+import Description from './components/Description';
+import Filters from './components/Filters/Filters';
+import Header from './components/Header';
+import SingleSelect from './components/Selects/SingleSelect';
 
 function App() {
+  const advTypeDescription = useSelector(state => state.advType.description);
+  const templateDescription = useSelector(state => state.advTemplate.description);
+  const variables = useSelector(state => state.advTemplate.variables);
   return (
     <>
       <Router>
@@ -34,7 +38,7 @@ function App() {
               <Grid item xs={9}>
 
                   {/* ------------------------------- A D V E N T U R E  R O W ---------------------------------- */}
-                  <Grid container >
+                  <Grid container mb={3}>
 
                     {/* -------- A D V.  S E L E C T  C O L U M N -------- */}
                     <Grid item xs={2}>
@@ -44,7 +48,7 @@ function App() {
 
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
                     <Grid item xs={9} pl={4}>
-                      <AdventureTypeDescription />
+                      <Description description={advTypeDescription} />
                     </Grid>
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
 
@@ -52,7 +56,7 @@ function App() {
                   {/* ------------------------------- A D V E N T U R E  R O W ---------------------------------- */}
 
                   {/* ------------------------------- T E M P L A T E  R O W ---------------------------------- */}
-                  <Grid container >
+                  <Grid container mb={3}>
                     
                     {/* -------- C O L U M N --------- */}
                     <Grid item xs={2}>
@@ -62,15 +66,23 @@ function App() {
 
                     {/* -------- C O L U M N --------- */}
                     <Grid item xs={9} pl={4}>
-                      <AdventureTemplateDescription />
+                      <Description description={templateDescription} />
                     </Grid>
                     {/* -------- C O L U M N --------- */}
                   </Grid>
                   {/* ------------------------------- T E M P L A T E  R O W ---------------------------------- */}
 
-                  {/* ------------------------ T E M P L A T E  O P T I O N S  R O W --------------------------- */}
-
-                  {/* ------------------------ T E M P L A T E  O P T I O N S  R O W --------------------------- */}
+                  {/* ------------------------ T E M P L A T E  V A R I B L E S  R O W --------------------------- */}
+                  <Grid container mb={3}>
+                    { 
+                      variables.length > 0 ? (
+                        variables.map(variable => {
+                          <SingleSelect key={variable} variable={variable}></SingleSelect>
+                        })
+                      ) : <div></div> // placeholder div
+                    }
+                  </Grid>
+                  {/* ------------------------ T E M P L A T E  V A R I B L E S  R O W --------------------------- */}
 
                   {/* -------------------------------- D I S P L A Y  R O W ------------------------------------ */}
 

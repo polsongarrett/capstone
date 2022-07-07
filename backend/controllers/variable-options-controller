@@ -1,0 +1,10 @@
+const asyncHandler = require('express-async-handler'); // for express.js error handling
+
+const VariableOptions = require('../models/variable-options-model');
+
+const getVariableOptions = asyncHandler(async (res) => {
+  const variableOptions = await VariableOptions.find({variable});
+  res.status(200).json(variableOptions);
+});
+
+module.exports = { getVariableOptions }

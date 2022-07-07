@@ -3,12 +3,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { changeAdvTypeDescription } from '../../redux/slices/advTypeDescriptionSlice';
-import { getTemplateDescriptions } from '../../redux/slices/advTemplateDescriptionSlice';
-import { getTemplates } from '../../redux/slices/advTemplateOptionsSlice';
-import { changeAdvType } from '../../redux/slices/advTypeSlice';
+import { getTemplates } from '../../redux/slices/templateSlice';
+import { changeAdvType, changeAdvTypeDescription } from '../../redux/slices/advTypeSlice';
 
 const advTypeOptions = [
   'Random',
@@ -47,7 +45,6 @@ export default function AdventureTypeSelect() {
     dispatch(changeAdvType(advTypeOptions[index]));
     dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
     dispatch(getTemplates(advTypeOptions[index]));
-    dispatch(getTemplateDescriptions(advTypeOptions[index]));
   };
 
   return (

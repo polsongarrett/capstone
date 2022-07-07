@@ -7,6 +7,4 @@ const getTemplates = asyncHandler(async (req, res) => {
   res.status(200).json(templates);
 });
 
-module.exports = {
-  getTemplates,
-}
+module.exports = { getTemplates }

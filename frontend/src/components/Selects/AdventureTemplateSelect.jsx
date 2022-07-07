@@ -5,14 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeTemplateDescription } from '../../redux/slices/advTemplateDescriptionSlice';
+import { changeTemplateDescription } from '../../redux/slices/templateSlice';
 
 export default function AdventureTemplateSelect() {
   const [advTemplate, setAdventureTemplate] = useState('');
   const dispatch = useDispatch();
 
-  const advTemplateOptions = useSelector(state => state.advTemplateOptions.templates);
-  const isCrime = useSelector(state => state.advType.advType === 'Crime');
+  const advTemplateOptions = useSelector(state => state.advTemplate.options);
 
   const handleChange = (event) => {
     let index = event.target.value;

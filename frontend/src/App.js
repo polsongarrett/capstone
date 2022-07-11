@@ -76,10 +76,10 @@ function App() {
                   <Grid container mb={3}>
                     { 
                       variables.length > 0 ? (
-                        variables.map(variable => {
-                          <SingleSelect key={variable} variable={variable}></SingleSelect>
+                        variables.map((v) => {
+                          return <SingleSelect key={v} templateVar={v}></SingleSelect>
                         })
-                      ) : <div></div> // placeholder div
+                      ) : <div>No Variables</div> 
                     }
                   </Grid>
                   {/* ------------------------ T E M P L A T E  V A R I B L E S  R O W --------------------------- */}

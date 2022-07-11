@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getVariableOptions = createAsyncThunk('variables/getOptions', async (variable) => {
-  const response = await axios.get('/api/variables/' + variable);
+  const response = await axios.get('/api/' + variable.toLowerCase());
   return response;
 });
 
@@ -14,8 +14,10 @@ export const variableSlice = createSlice({
   reducers: {
 
   },
-  extraReducers: {
+  extraReducers: builder => {
+    builder.addCase(getVariableOptions.fulfilled, (state, action) => {
 
+    });
   }
 });
 

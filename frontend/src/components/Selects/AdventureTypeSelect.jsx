@@ -5,8 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
 
-import { getTemplates } from '../../redux/slices/templateSlice';
 import { changeAdvType, changeAdvTypeDescription } from '../../redux/slices/advTypeSlice';
+import { changeTemplateDescription, resetTemplateOption, getTemplates } from '../../redux/slices/templateSlice';
 
 const advTypeOptions = [
   'Random',
@@ -44,6 +44,8 @@ export default function AdventureTypeSelect() {
 
     dispatch(changeAdvType(advTypeOptions[index]));
     dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
+    dispatch(changeTemplateDescription(0));
+    dispatch(resetTemplateOption('Random'));
     dispatch(getTemplates(advTypeOptions[index]));
   };
 
@@ -58,7 +60,6 @@ export default function AdventureTypeSelect() {
           label="Adventure Type"
           onChange={handleChange}
         >
-          {/* Dynamically populates the select options */}
           {
             advTypeOptions.map((element, index) => {
               return <MenuItem key={element} value={index} disabled={index > 2}>{element}</MenuItem>

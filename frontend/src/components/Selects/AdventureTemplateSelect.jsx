@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,17 +7,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { changeTemplateDescription } from '../../redux/slices/templateSlice';
 
-export default function AdventureTemplateSelect() {
-  const [advTemplate, setAdventureTemplate] = useState('');
-  const dispatch = useDispatch();
 
+export default function AdventureTemplateSelect() {
+  const advTemplateOption = useSelector(state => state.advTemplate.option);
   const advTemplateOptions = useSelector(state => state.advTemplate.options);
 
+  const [advTemplate, setTemplate] = useState('');
+  useEffect(()=> {
+    if (advTemplateOptions.length === 1) {
+      if (advTemplateOption === 'Random') {
+        setTemplate(0)
+      }
+      else {
+        setTemplate('');
+      }
+    }
+  }, [advTemplateOption, advTemplateOptions.length]);
+  
+  const dispatch = useDispatch();
+  
   const handleChange = (event) => {
     let index = event.target.value;
-    setAdventureTemplate(index);
+    setTemplate(index);
     dispatch(changeTemplateDescription(index));
   };
+
+  
 
   return (
     <>
@@ -30,7 +45,6 @@ export default function AdventureTemplateSelect() {
           label="Adventure Template"
           onChange={handleChange}
         >
-          {/* Dynamically populates the select options */}
           {
             advTemplateOptions.map((element, index) => {
               return <MenuItem key={element} value={index}>{element}</MenuItem>

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getVariableOptions = createAsyncThunk('variables/getOptions', async (variable) => {
-  const response = await axios.get('/api/' + variable.toLowerCase());
+  const response = await axios.get('/api/' + variable);
   return response;
 });
 

@@ -12,7 +12,19 @@ import SingleSelect from './components/Selects/SingleSelect';
 function App() {
   const advTypeDescription = useSelector(state => state.advType.description);
   const templateDescription = useSelector(state => state.advTemplate.description);
-  const variables = useSelector(state => state.advTemplate.variables);
+  const template = useSelector(state => state.advTemplate.template);
+
+  const variables = useSelector(state => {
+    if (Object.keys(template).length !== 0) {
+      return state.advTemplate.template.variables;
+    }
+    else {
+      return [];
+    }
+  });
+
+
+  
   return (
     <>
       <Router>
@@ -35,7 +47,7 @@ function App() {
               {/* -------- F I L T E R S  C O L U M N -------- */}
               
               {/* ----------- M E N U  C O L U M N ----------- */}
-              <Grid item xs={9}>
+              <Grid item xs={9} pr={4}>
 
                   {/* ------------------------------- A D V E N T U R E  R O W ---------------------------------- */}
                   <Grid container mb={3}>
@@ -47,7 +59,7 @@ function App() {
                     {/* -------- A D V.  S E L E C T  C O L U M N -------- */}
 
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
-                    <Grid item xs={9} pl={4}>
+                    <Grid item xs={10} pl={4}>
                       <Description description={advTypeDescription} />
                     </Grid>
                     {/* -------- A D V.  D E S C R.   C O L U M N -------- */}
@@ -65,7 +77,7 @@ function App() {
                     {/* -------- C O L U M N --------- */}
 
                     {/* -------- C O L U M N --------- */}
-                    <Grid item xs={9} pl={4}>
+                    <Grid item xs={10} pl={4}>
                       <Description description={templateDescription} />
                     </Grid>
                     {/* -------- C O L U M N --------- */}
@@ -77,7 +89,11 @@ function App() {
                     { 
                       variables.length > 0 ? (
                         variables.map((v) => {
-                          return <SingleSelect key={v} templateVar={v}></SingleSelect>
+                          return (
+                            <Grid item xs={3} pr={4}>
+                              <SingleSelect key={v} templateVar={v}></SingleSelect>
+                            </Grid>
+                          )
                         })
                       ) : <div>No Variables</div> 
                     }

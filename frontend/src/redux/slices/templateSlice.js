@@ -9,42 +9,38 @@ export const getTemplates = createAsyncThunk('templates/getTemplates', async (ad
 export const templateSlice = createSlice({
   name: 'template',
   initialState: {
-    option: '',
-    options: ['Random'],
     description: 'Choose your adventure template or generate it randomly!',
     descriptions: ['Choose your adventure template or generate it randomly!'],
-    variables: []
+    template: {},
+    templateAdvType: 'Random',
+    templates: []
   },
   reducers: {
+    changeTemplate: (state, action) => {
+      if (action.payload <= 0) {
+        state.template = {};
+      }
+      else {
+        state.template = state.templates[action.payload - 1];
+      }
+    },
     changeTemplateDescription: (state, action) => {
       state.description = state.descriptions[action.payload];
     },
-    resetTemplateOption: (state, action) => {
-      state.option = action.payload;
-    }
   },
   extraReducers: (builder) => {
     builder.addCase(getTemplates.fulfilled, (state, action) => {
-      const options = action.payload.data.map(element => { return element.name });
-      const descriptions = action.payload.data.map(element => { return element.description });
-      if (action.payload.data.length < 1) {
-        state.variables = [];
-      }
-      else {
-        action.payload.data.forEach(template => { 
-          template.variables.forEach(variable => {
-            if (!state.variables.includes(variable)) {
-              state.variables.push(variable);
-            }
-          });
-        });
-      }
+
+      const templates = action.payload.data;
+      const descriptions = templates.map(element => { return element.description });
+      const templateAdvType = templates.length < 1 ? 'Random' : templates[0].advType;
       
-      state.options = ['Random', ...options];
+      state.templateAdvType = templateAdvType;
+      state.templates = templates;
       state.descriptions = ['Choose your adventure template or generate it randomly!', ...descriptions];
     });
   }
 });
 
-export const { changeTemplateDescription, resetTemplateOption } = templateSlice.actions;
+export const { changeTemplate, changeTemplateDescription } = templateSlice.actions;
 export default templateSlice.reducer;

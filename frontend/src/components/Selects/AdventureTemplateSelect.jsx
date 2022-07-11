@@ -5,24 +5,26 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { changeTemplateDescription } from '../../redux/slices/templateSlice';
+import { changeTemplate, changeTemplateDescription } from '../../redux/slices/templateSlice';
+// import { getVariableOptions } from '../../redux/slices/templateSlice';
 
 
 export default function AdventureTemplateSelect() {
-  const advTemplateOption = useSelector(state => state.advTemplate.option);
-  const advTemplateOptions = useSelector(state => state.advTemplate.options);
-
+  const stateTemplateOptions = useSelector(state => {
+    return state.advTemplate.templates.map(template => {
+      return template.name;
+    })
+  });
+  const advTemplateOptions = ['Random', ...stateTemplateOptions];
+  const templateAdvType = useSelector(state => state.templateAdvType);
+  const advType = useSelector(state=> state.advType);
   const [advTemplate, setTemplate] = useState('');
+
   useEffect(()=> {
-    if (advTemplateOptions.length === 1) {
-      if (advTemplateOption === 'Random') {
-        setTemplate(0)
-      }
-      else {
-        setTemplate('');
-      }
+    if (templateAdvType !== advType) {
+      setTemplate('');
     }
-  }, [advTemplateOption, advTemplateOptions.length]);
+  }, [advType, templateAdvType]);
   
   const dispatch = useDispatch();
   
@@ -30,6 +32,8 @@ export default function AdventureTemplateSelect() {
     let index = event.target.value;
     setTemplate(index);
     dispatch(changeTemplateDescription(index));
+    dispatch(changeTemplate(index));
+    // dispatch(getVariableOptions)
   };
 
   

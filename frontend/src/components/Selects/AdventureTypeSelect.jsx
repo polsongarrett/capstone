@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
 
 import { changeAdvType, changeAdvTypeDescription } from '../../redux/slices/advTypeSlice';
-import { changeTemplateDescription, resetTemplateOption, getTemplates } from '../../redux/slices/templateSlice';
+import { changeTemplateDescription, getTemplates } from '../../redux/slices/templateSlice';
 
 const advTypeOptions = [
   'Random',
@@ -45,7 +45,6 @@ export default function AdventureTypeSelect() {
     dispatch(changeAdvType(advTypeOptions[index]));
     dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
     dispatch(changeTemplateDescription(0));
-    dispatch(resetTemplateOption('Random'));
     dispatch(getTemplates(advTypeOptions[index]));
   };
 

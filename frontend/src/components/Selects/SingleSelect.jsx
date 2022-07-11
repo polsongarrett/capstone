@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
-// import FormControl from '@mui/material/FormControl';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import Select from '@mui/material/Select';
 import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 // import { useDispatch } from 'react-redux';
 
-// import { getVariableOptions } from '../../redux/slices/variableSlice';
+import { getVariableOptions } from '../../redux/slices/variableSlice';
+
+function capitlizeFirstLetter(string) {
+  let capitilzedString = string.charAt(0).toUpperCase() + string.slice(1);
+  return capitilzedString;
+}
 
 export default function SingleSelect({templateVar}) {
-  // const [variable, setAdventureType] = useState('');
+  const templateVarLabel = capitlizeFirstLetter(templateVar);
+  const [variable, setVariableOption] = useState('');
   // const dispatch = useDispatch();
   // dispatch(getVariableOptions(var));
   // console.log('templateVar:', templateVar);
+
 
   const handleChange = (event) => {
     // let index = event.target.value;
@@ -25,13 +28,13 @@ export default function SingleSelect({templateVar}) {
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel id="adv-template-select-label">{templateVar}</InputLabel>
+        <InputLabel id="adv-template-select-label">{templateVarLabel}</InputLabel>
         <Select
           labelId={templateVar + "-variable-select-label"}
           id={templateVar + "-variable-select"}
           // value={variable}
-          value=""
-          label={templateVar}
+          value={variable}
+          label={templateVarLabel}
           onChange={handleChange}
         >
           {/* {

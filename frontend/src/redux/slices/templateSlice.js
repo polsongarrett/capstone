@@ -35,6 +35,7 @@ export const templateSlice = createSlice({
       const descriptions = templates.map(element => { return element.description });
       const templateAdvType = templates.length < 1 ? 'Random' : templates[0].advType;
       
+      state.template = {};
       state.templateAdvType = templateAdvType;
       state.templates = templates;
       state.descriptions = ['Choose your adventure template or generate it randomly!', ...descriptions];

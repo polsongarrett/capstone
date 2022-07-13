@@ -21,6 +21,7 @@ export const templateSlice = createSlice({
         state.template = {};
       }
       else {
+        console.log(action.payload);
         state.template = state.templates[action.payload - 1];
       }
     },

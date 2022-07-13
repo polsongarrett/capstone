@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/api/templates', require('./routes/template-route'));
 app.use('/api/variables', require('./routes/variables-route'));
+app.use('/api/templates', require('./routes/template-route'));
 
 app.listen(port, () => console.log(`server started on port ${port}`));

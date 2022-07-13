@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-// import { useDispatch } from 'react-redux';
 
-import { getVariableOptions } from '../../redux/slices/variableSlice';
+import { changeSelectedVarOpts } from '../../redux/slices/variableSlice';
+import { useFilter } from '../../hooks/useFilter';
 
 function capitlizeFirstLetter(string) {
   let capitilzedString = string.charAt(0).toUpperCase() + string.slice(1);
@@ -12,17 +13,16 @@ function capitlizeFirstLetter(string) {
 export default function SingleSelect({templateVar}) {
   const templateVarLabel = capitlizeFirstLetter(templateVar);
   const [variable, setVariableOption] = useState('');
-  // const dispatch = useDispatch();
-  // dispatch(getVariableOptions(var));
-  // console.log('templateVar:', templateVar);
 
+  const variableOptions = useFilter(templateVar);
+
+  variableOptions.unshift({_id: 0, name: 'Random', variableType: templateVar});
+  const dispatch = useDispatch();
 
   const handleChange = (event) => {
-    // let index = event.target.value;
-
-  //   dispatch(changeAdvType(advTypeOptions[index]));
-  //   dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
-    
+    let index = event.target.value;
+    setVariableOption(index);
+    dispatch(changeSelectedVarOpts(variableOptions[index]));
   };
 
   return (
@@ -32,16 +32,15 @@ export default function SingleSelect({templateVar}) {
         <Select
           labelId={templateVar + "-variable-select-label"}
           id={templateVar + "-variable-select"}
-          // value={variable}
           value={variable}
           label={templateVarLabel}
           onChange={handleChange}
         >
-          {/* {
-            variable.map((element, index) => {
-              return <MenuItem key={element} value={index}>{element}</MenuItem>
-            }) 
-          } */}
+          {
+            variableOptions.map((element, index) => {
+              return <MenuItem key={element._id} value={index}>{element.name}</MenuItem>
+            })
+          }
         </Select>
       </FormControl>
     </>

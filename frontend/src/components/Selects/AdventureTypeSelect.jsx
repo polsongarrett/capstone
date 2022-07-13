@@ -35,6 +35,7 @@ const advTypeDescriptions = [
 ]
 
 export default function AdventureTypeSelect() {
+
   const [advType, setAdventureType] = useState('');
   const dispatch = useDispatch();
 

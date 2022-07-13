@@ -1,15 +1,14 @@
-import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
+
+import { changeThemeFilters } from '../../redux/slices/filterSlice';
 
 export default function ThemeFilter() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     fantasy: true,
     scifi: false,
-    western: false,
+    western: false
   });
 
   const handleChange = (event) => {
@@ -21,6 +20,11 @@ export default function ThemeFilter() {
 
   const { fantasy, scifi, western } = state;
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeThemeFilters(state))
+  })
+
   return (
     <>
       <FormControl component="fieldset" variant="standard">
@@ -31,18 +35,21 @@ export default function ThemeFilter() {
               <Checkbox checked={fantasy} onChange={handleChange} name="fantasy" />
             }
             label="Fantasy"
+            style={{color: '#fff'}}
           />
           <FormControlLabel
             control={
               <Checkbox checked={scifi} onChange={handleChange} name="scifi" />
             }
             label="Sci-fi"
+            style={{color: '#fff'}}
           />
           <FormControlLabel
             control={
               <Checkbox checked={western} onChange={handleChange} name="western" />
             }
             label="Western"
+            style={{color: '#fff'}}
           />
         </FormGroup>
       </FormControl>

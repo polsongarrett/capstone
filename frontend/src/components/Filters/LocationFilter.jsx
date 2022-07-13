@@ -1,24 +1,30 @@
-import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import FormLabel from '@mui/material/FormLabel';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@mui/material';
+
+import { changeLocationFilters } from '../../redux/slices/filterSlice';
 
 export default function LocationFilter() {
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     urban: true,
-    wilderness: true,
+    wilderness: true
   });
 
   const handleChange = (event) => {
     setState({
       ...state,
-      [event.target.name]: event.target.checked,
+      [event.target.name]: event.target.checked
     });
   };
 
   const { urban, wilderness } = state;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(changeLocationFilters(state))
+  })
+
+
 
   return (
     <>
@@ -30,12 +36,14 @@ export default function LocationFilter() {
               <Checkbox checked={urban} onChange={handleChange} name="urban" />
             }
             label="Urban"
+            style={{color: '#fff'}}
           />
           <FormControlLabel
             control={
               <Checkbox checked={wilderness} onChange={handleChange} name="wilderness" />
             }
             label="Wilderness"
+            style={{color: '#fff'}}
           />
         </FormGroup>
       </FormControl>

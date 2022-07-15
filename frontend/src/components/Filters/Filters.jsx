@@ -5,11 +5,11 @@ import ThemeFilter from './ThemeFilter';
 
 export default function Filters() {
   return (
-    <Grid container>
-      <Grid item xs={12} pb={2}>
+    <Grid container rowSpacing={3}>
+      <Grid item xs={12} sm={6} md={12}>
         <LocationFilter />  
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sm={6} md={12}>
         <ThemeFilter />
       </Grid>
     </Grid>

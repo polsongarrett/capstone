@@ -5,17 +5,45 @@ import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@
 import { changeThemeFilters } from '../../redux/slices/filterSlice';
 
 export default function ThemeFilter() {
+  const INITIALLY_CHECKED_BOXES = 3;
+  const CHECKED_CHECKBOX_MINIMUM = 1;
   const [state, setState] = useState({
     fantasy: true,
-    scifi: false,
-    western: false
+    scifi: true,
+    western: true
   });
+  const [checkBoxCount, setCheckBoxCount] = useState(INITIALLY_CHECKED_BOXES)
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.checked,
-    });
+    setState(
+      () => {
+        if (!event.target.checked) {
+          if (checkBoxCount === CHECKED_CHECKBOX_MINIMUM) {
+            setState({
+              ...state,
+              [event.target.name]: !event.target.checked
+            });
+            console.log('min reached');
+          }
+          else {
+            setState({
+              ...state,
+              [event.target.name]: event.target.checked
+            });
+            setCheckBoxCount(checkBoxCount - 1);
+            console.log('checkBoxCount - 1');
+          }
+        }
+        else {
+          setState({
+            ...state,
+            [event.target.name]: event.target.checked
+          })
+          setCheckBoxCount(checkBoxCount + 1);
+          console.log('checkBoxCount + 1');
+        }
+      }
+    );
   };
 
   const { fantasy, scifi, western } = state;

@@ -5,10 +5,13 @@ import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@
 import { changeLocationFilters } from '../../redux/slices/filterSlice';
 
 export default function LocationFilter() {
+  const INITIALLY_CHECKED_BOXES = 2;
+  const CHECKED_CHECKBOX_MINIMUM = 1;
   const [state, setState] = useState({
     urban: true,
     wilderness: true
   });
+  const [checkBoxCount, setCheckBoxCount] = useState(INITIALLY_CHECKED_BOXES)
 
   const handleChange = (event) => {
     setState(
@@ -19,7 +22,6 @@ export default function LocationFilter() {
               ...state,
               [event.target.name]: !event.target.checked
             });
-            console.log('min reached');
           }
           else {
             setState({
@@ -27,7 +29,6 @@ export default function LocationFilter() {
               [event.target.name]: event.target.checked
             });
             setCheckBoxCount(checkBoxCount - 1);
-            console.log('checkBoxCount - 1');
           }
         }
         else {
@@ -36,7 +37,6 @@ export default function LocationFilter() {
             [event.target.name]: event.target.checked
           })
           setCheckBoxCount(checkBoxCount + 1);
-          console.log('checkBoxCount + 1');
         }
       }
     );

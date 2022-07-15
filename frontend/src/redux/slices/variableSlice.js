@@ -9,8 +9,9 @@ export const getVariableOptions = createAsyncThunk('variables/getOptions', async
 export const variableSlice = createSlice({
   name: 'variable',
   initialState: {
-    variableOptions: [],
-    selectedVarOpts: []
+    isError: false,
+    selectedVarOpts: [],
+    variableOptions: []
   },
   reducers: {
     changeSelectedVarOpts: (state, action) => {
@@ -37,9 +38,14 @@ export const variableSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(getVariableOptions.fulfilled, (state, action) => {
-      state.variableOptions = action.payload.data;
-    });
+    builder
+      .addCase(getVariableOptions.fulfilled, (state, action) => {
+        state.variableOptions = action.payload.data;
+        state.isError = false;
+     })
+     .addCase(getVariableOptions.rejected, (state) => {
+        state.isError = true;
+     })
   }
 });
 

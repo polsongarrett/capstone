@@ -20,10 +20,16 @@ const darkTheme = createTheme({
 
 function App() {
   const advTypeDescription = useSelector(state => state.advType.description);
+  const plothook = useSelector(state => state.plothook.plothook);
+  const isTemplateError = useSelector(state => state.advTemplate.isError);
+  const isVariableError = useSelector(state => state.advVariable.isError);
   const templateDescription = useSelector(state => state.advTemplate.description);
   const template = useSelector(state => state.advTemplate.template);
   const templateVariables = Object.keys(template).length !== 0 ? template.variables : [];
-  const plothook = useSelector(state => state.plothook.plothook);
+
+  if (isTemplateError || isVariableError) {
+    alert('There was an error connecting to the database. Try again by refreshing the page and re-selecting your options.');
+  }
 
   return (
     <ThemeProvider theme={darkTheme}>

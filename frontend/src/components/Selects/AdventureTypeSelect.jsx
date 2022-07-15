@@ -3,26 +3,13 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { changeAdvType, changeAdvTypeDescription } from '../../redux/slices/advTypeSlice';
 import { changeTemplateDescription, getTemplates } from '../../redux/slices/templateSlice';
 
-const advTypeOptions = [
-  'Random',
-  'Competition',
-  'Crime',
-  'Curse',
-  'Disaster',
-  'Exploration',
-  'Monster',
-  'Plague',
-  'Protection',
-  'War'
-];
-
 const advTypeDescriptions = [
-  'Choose your adventure type or generate it randomly!',
+  'Generate a plothook with a random adventure type!',
   'In a competition, people compete against others to win a prize, which could be an improved reputation, money, real estate, etc. For adventurers, however, it is usually not that straightforward.',
   'Sometimes an adventure involves criminal activity. The adventurers could be the investigators, the victims, or the (framed) perpetrators of said criminal activity, which might range from burglary and theft to murder and treason.',
   'Curses vary widely in scope and effect. A curse may afflict just a person or object, or it could affect an entire country and everyone and everything in it. This adventure might depend on some adventurers taking steps to either break the curse or simply to escape it.',
@@ -34,8 +21,11 @@ const advTypeDescriptions = [
   'A war can be between nations, cities, factions, families, gangs, etc. Wars can be fought in the open or in secret. Adventurers may or may not be loyal to any side. They may take on secret missions, diplomatic missions, or assault missions.'
 ]
 
+const TEMPLATE_DESCRIPTION_RANDOM = 0;
+
 export default function AdventureTypeSelect() {
 
+  const advTypeOptions = useSelector(state => state.advType.advTypes);
   const [advType, setAdventureType] = useState('');
   const dispatch = useDispatch();
 
@@ -45,7 +35,7 @@ export default function AdventureTypeSelect() {
 
     dispatch(changeAdvType(advTypeOptions[index]));
     dispatch(changeAdvTypeDescription(advTypeDescriptions[index]));
-    dispatch(changeTemplateDescription(0));
+    dispatch(changeTemplateDescription(TEMPLATE_DESCRIPTION_RANDOM));
     dispatch(getTemplates(advTypeOptions[index]));
   };
 

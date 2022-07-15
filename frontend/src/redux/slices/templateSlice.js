@@ -9,8 +9,9 @@ export const getTemplates = createAsyncThunk('templates/getTemplates', async (ad
 export const templateSlice = createSlice({
   name: 'template',
   initialState: {
-    description: 'Choose your adventure template or generate it randomly!',
-    descriptions: ['Choose your adventure template or generate it randomly!'],
+    description: 'Generate a plothook with a random template! (To select a template, first select an adventure type)',
+    descriptions: ['Generate a plothook with a random template! (To select a template, first select an adventure type)'],
+    randomTemplate: {},
     template: {},
     templateAdvType: 'Random',
     templates: []
@@ -21,13 +22,15 @@ export const templateSlice = createSlice({
         state.template = {};
       }
       else {
-        console.log(action.payload);
         state.template = state.templates[action.payload - 1];
       }
     },
     changeTemplateDescription: (state, action) => {
       state.description = state.descriptions[action.payload];
     },
+    setRandomTemplate: (state, action) => {
+      state.randomTemplate = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getTemplates.fulfilled, (state, action) => {
@@ -39,10 +42,10 @@ export const templateSlice = createSlice({
       state.template = {};
       state.templateAdvType = templateAdvType;
       state.templates = templates;
-      state.descriptions = ['Choose your adventure template or generate it randomly!', ...descriptions];
+      state.descriptions = ['Generate a plothook with a random template! (To select a template, first select an adventure type)', ...descriptions];
     });
   }
 });
 
-export const { changeTemplate, changeTemplateDescription } = templateSlice.actions;
+export const { changeTemplate, changeTemplateDescription, setRandomTemplate } = templateSlice.actions;
 export default templateSlice.reducer;

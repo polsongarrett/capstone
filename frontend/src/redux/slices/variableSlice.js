@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const getVariableOptions = createAsyncThunk('variables/getOptions', async (variables) => {
   const response = await axios.get('/api/variables/' + variables.join('/'));
-  // const response = await axios.get('/api/variables/' + 'prizes/twists'); // DELETE
   return response;
 });
 

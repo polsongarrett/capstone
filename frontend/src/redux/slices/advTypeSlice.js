@@ -4,7 +4,19 @@ export const advTypeSlice = createSlice({
   name: 'advType',
   initialState: {
     advtype: 'Random',
-    description: 'Choose your adventure type or generate it randomly!'
+    advTypes: [
+      'Random',
+      'Competition',
+      'Crime',
+      'Curse',
+      'Disaster',
+      'Exploration',
+      'Monster',
+      'Plague',
+      'Protection',
+      'War'
+    ],
+    description: 'Generate a plothook with a random adventure type!'
   },
   reducers: {
     changeAdvType: (state, action) => {

@@ -11,15 +11,16 @@ import { getVariableOptions, resetSelectedVarOpts } from '../../redux/slices/var
 export default function AdventureTemplateSelect() {
   const [advTemplate, setTemplate] = useState('');
 
+  const advType = useSelector(state => state.advType.advtype);
+  const template = useSelector(state => state.advTemplate.template);
+  const templateAdvType = useSelector(state => state.advTemplate.templateAdvType);
   const stateTemplateOptions = useSelector(state => {
     return state.advTemplate.templates.map(template => {
       return template.name;
     })
   });
+
   const advTemplateOptions = ['Random', ...stateTemplateOptions];
-  const templateAdvType = useSelector(state => state.advTemplate.templateAdvType);
-  const advType = useSelector(state => state.advType.advtype);
-  const template = useSelector(state => state.advTemplate.template);
   const variables = template.variables;
 
   const dispatch = useDispatch();
@@ -41,15 +42,18 @@ export default function AdventureTemplateSelect() {
     dispatch(resetSelectedVarOpts());
   };
 
+  const isRandomAdvType = (advType === 'Random' || advType === null) ? true : false;
+
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel id="adv-template-select-label">Adventure Template</InputLabel>
+        <InputLabel id="adv-template-select-label" style={isRandomAdvType ? {color: 'rgba(255, 255, 255, 0.25)'} : {}}>Adventure Template</InputLabel>
         <Select
           labelId="adv-template-select-label"
           id="adv-template-select"
           value={advTemplate}
           label="Adventure Template"
+          disabled={isRandomAdvType}
           onChange={handleChange}
         >
           {

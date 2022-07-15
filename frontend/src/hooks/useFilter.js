@@ -15,28 +15,13 @@ function filter (varOption, templateVar, themes, location) {
 }
 
 export function useFilter(templateVarOrVars) {
-  
+
   const themes = useSelector(state => state.filters.themes);
   const location = useSelector(state => state.filters.location);
-  
-  const variableOptions = useSelector(state => {
-    return state.advVariable.variableOptions.filter(varOption => {
+  const variableOptions = useSelector(state => state.advVariable.variableOptions);
+  const filteredVariableOptions = variableOptions.filter(varOption => {
       if (Array.isArray(templateVarOrVars)) {
         return templateVarOrVars.some(templateVar => filter(varOption, templateVar, themes, location));
-          
-          // (JSON.stringify(varOption.variableType) === JSON.stringify(templateVar)) && (
-          //   (
-          //     (varOption.genres.fantasy && themes.fantasy === true) || 
-          //     (varOption.genres.scifi && themes.scifi === true) || 
-          //     (varOption.genres.western && themes.western === true)
-          //   ) && 
-          //   (
-          //     (varOption.location.wilderness && location.wilderness === true) || 
-          //     (varOption.location.urban && location.urban === true)
-          //   )
-          // )
-              
-        // );
       }
       else {
         return filter(varOption, templateVarOrVars, themes, location);
@@ -54,7 +39,6 @@ export function useFilter(templateVarOrVars) {
         //   }
         // }
       }
-    })
-  });
-  return variableOptions;
+    });
+  return filteredVariableOptions;
 }

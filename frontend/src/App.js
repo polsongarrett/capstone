@@ -25,7 +25,6 @@ function App() {
   const templateVariables = Object.keys(template).length !== 0 ? template.variables : [];
   const plothook = useSelector(state => state.plothook.plothook);
 
-
   return (
     <ThemeProvider theme={darkTheme}>
       <Router>

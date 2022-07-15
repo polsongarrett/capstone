@@ -15,11 +15,12 @@ export default function GeneratePlothooksButton({templateVars}) {
   const templates = useSelector(state => state.advTemplate.templates);
   const description = useSelector(state => state.advTemplate.description);
   const randomTemplate = useSelector(state => state.advTemplate.randomTemplate);
-  const selectedVarOpts = useSelector(state => state.advVariable.selectedVarOpts);
+  const selectedVarOpts = useSelector(state => state.advVariable.selectedVarOpts);     
 
   if (templateVars.length < 1) {
     templateVars = randomTemplate.variables;
   }
+
   const variableOptions = useFilter(templateVars);
 
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function GeneratePlothooksButton({templateVars}) {
   const [tempVarOpts, setTempVarOpts] = useState(variableOptions);
 
   const LENGTH_OF_ADVTYPES = 3; // TODO: Fill out database so more adventure types are available
-  const START_INDEX_ZERO = 0
+  const START_INDEX_ZERO = 0;
   const START_INDEX_ONE = 1;
   const isTemplate = Object.keys(template).length > 0;
 
@@ -115,6 +116,15 @@ export default function GeneratePlothooksButton({templateVars}) {
        if (!isSameVarOpts) {
          setTempVarOpts(variableOptions);
        }
+      }
+
+      /**
+       * TODO: 
+       * This is a temporary fix for the filters not affecting tempVarOpts
+       * There will be corner cases when the filters change but the variableOptions.length and tempVarOpts.length are still equal      
+       */
+      if (tempVarOpts.length !== variableOptions.length) {
+        setTempVarOpts(variableOptions);
       }
     }
   },
